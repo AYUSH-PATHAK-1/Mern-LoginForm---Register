@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
-import {useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { URL } from "../url";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   // State variables to hold the form data
@@ -9,7 +11,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   // Function to handle form input changes
   const handleInputChange = (e) => {
@@ -21,26 +23,32 @@ const Login = () => {
   };
 
   // Function to handle form submission
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password} = formData;
+    const { email, password } = formData;
 
-    try{
-        if(!email || !password ){
-            console.log("Please Fill All The Fields");
-        }else{
-            const res=await axios.post(URL+"/login",{email: email,password:password},{withCredentials:true});
-              console.log("Login successfully:", res.data);
-              setFormData({
-                email: "",
-                password: "",
-              });              
-              navigate("/");
-        }
-    }catch(error){
-        console.error('An Error Occurred',error)
+    try {
+      if (!email || !password) {
+        console.log("Please Fill All The Fields");
+        toast.error("Please Fill All The Fields !!");
+      } else {
+        const res = await axios.post(
+          URL + "/login",
+          { email: email, password: password },
+          { withCredentials: true }
+        );
+        console.log("Login successfully:", res.data);
+        setFormData({
+          email: "",
+          password: "",
+        });
+        toast.success("Logged In Succsessfully!!");
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("An Error Occurred", error);
+      toast.error("User Not Registred !!");
     }
-   
   };
   return (
     <>
@@ -76,7 +84,7 @@ const Login = () => {
                     onChange={handleInputChange}
                     className="name border-black border-[1px] rounded-lg p-2"
                     placeholder="Enter Your Password"
-                    autoComplete="current-password" 
+                    autoComplete="current-password"
                   />
                 </div>
                 <div className=" justify-center items-center flex p-6">
