@@ -4,6 +4,17 @@ import nama from '../images/nama.png'
 import {useNavigate} from 'react-router-dom';
 import { URL } from "../url";
 import axios from "axios";
+import Sidebar ,{ SidebarItem } from "./Sidebar.jsx";
+import  {
+  LifeBuoy,
+  Receipt,
+  Boxes,
+  Package,
+  UserCircle,
+  BarChart3,
+  LayoutDashboard,
+  Settings}
+  from "lucide-react"
 
 const Home = () => {  
   const [name,setName]=useState("");
@@ -29,6 +40,20 @@ const Home = () => {
   },[]);
   return (
     <>
+    <Sidebar>
+    <SidebarItem
+icon={<LayoutDashboard size={20} />}
+text="Dashboard"
+alert/>
+<SidebarItem icon={<BarChart3 size={20} />} text="Statistics" active/>
+<SidebarItem icon={<UserCircle size={20} />} text="Users" />
+<SidebarItem icon={<Boxes size={20}/> } text="Inventory"/>
+<SidebarItem icon={<Package size={20} />} text="Orders" alert />
+<SidebarItem icon={<Receipt size={20} />} text="Billings"/>
+<hr className="my-3"/>
+<SidebarItem icon={<Settings size={20}/> } text="Settings"/>
+<SidebarItem icon={<LifeBuoy size={20}/> } text="Help" />
+</Sidebar>
       <div className=" bg-indigo-400 h-screen">
         <div className="title font-bold  pt-4 text-white">         
             <h1 className=" font-bold text-2xl m-5  justify-center flex">Welcome To The Home Screen <span className=" text-2xl font-bold text-yellow-300 mx-3"> {name}</span> </h1>    
