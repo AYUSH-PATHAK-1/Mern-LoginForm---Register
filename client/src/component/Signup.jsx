@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
-import {useNavigate, Link } from "react-router-dom";
-import {URL} from '../url';
+import { useNavigate, Link } from "react-router-dom";
+import { URL } from "../url";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   // State variables to hold the form data
@@ -13,8 +13,7 @@ const Signup = () => {
     password: "",
     phoneno: "",
   });
-  const navigate = useNavigate(); 
-
+  const navigate = useNavigate();
 
   // Function to handle form input changes
   const handleInputChange = (e) => {
@@ -26,15 +25,15 @@ const Signup = () => {
   };
 
   // Function to handle form submission
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password, phoneno } = formData;
 
-    try{
-        if(!name || !email || !password || !phoneno){
-            console.log("Please Fill All The Fields");
-            toast.error("Please Fill All The Fields !!")
-        }else{
+    try {
+      if (!name || !email || !password || !phoneno) {
+        console.log("Please Fill All The Fields");
+        toast.error("Please Fill All The Fields !!");
+      } else {
         //   const res = await fetch(URL + "/register", {
         //     method: "POST",
         //     headers: {
@@ -44,28 +43,30 @@ const Signup = () => {
         //         name,
         //         email,
         //         password,
-        //         phoneno                       
+        //         phoneno
         //     }),
         // });
 
-        const res=await axios.post(URL+"/register",{name: name,email: email,password:password,phoneno:phoneno},{withCredentials:true})
+        const res = await axios.post(
+          URL + "/register",
+          { name: name, email: email, password: password, phoneno: phoneno },
+          { withCredentials: true }
+        );
 
-              console.log("Account created successfully:", res.data);
-              setFormData({
-                email: "",
-                password: "",
-                phoneno:"",
-                name:""
-              });          
-              toast.success("Registerd Succsessfully!!")     
-              navigate("/login");
-        }
-    }catch(error){
-        console.error('An Error Occurred',error)
-        toast.error("Error !!")
-       
+        console.log("Account created successfully:", res.data);
+        setFormData({
+          email: "",
+          password: "",
+          phoneno: "",
+          name: "",
+        });
+        toast.success("Registerd Succsessfully!!");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("An Error Occurred", error);
+      toast.error("Error !!");
     }
-   
   };
   return (
     <>
